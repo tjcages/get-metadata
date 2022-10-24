@@ -43,7 +43,7 @@ describe('metainspector', function() {
 				} else {
 					throw new Error('I should not get called twice');
 				}
-      });;
+      });
 		});
 	});
 
