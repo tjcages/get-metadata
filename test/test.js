@@ -71,13 +71,11 @@ describe("metainspector", function () {
     it("should have a parsedDocument", function (done) {
       client = new MetaInspector("http://www.google.com");
 
-      client.once("fetch", function () {
+      client.fetch().then(function () {
         should.exist(client.parsedDocument);
 
         done();
       });
-
-      client.fetch();
     });
 
     it("should have a title", function (done) {
