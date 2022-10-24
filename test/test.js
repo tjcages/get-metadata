@@ -266,13 +266,11 @@ describe("metainspector", function () {
     it("should emit errors", function (done) {
       client = new MetaInspector("http://www.google-404.com/", {});
 
-      client.on("error", function (error) {
-        should.exist(error);
+      client.fetch.then(function (resolve, reject) {
+        should.exist(reject);
 
         done();
       });
-
-      client.fetch();
     });
 
     it("should return the open graph type, if defined", function (done) {
