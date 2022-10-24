@@ -72,6 +72,20 @@ MetaInspector.prototype.getFavicon = function() {
 	return this;
 };
 
+MetaInspector.prototype.getTouchIcon = function() {
+	debug("Parsing page apple-touch-icon");
+
+	if(this.appleTouchIcon === undefined)
+	{
+    var touchIcon = this.parsedDocument("link[rel='apple-touch-icon']").attr("href");
+		if (touchIcon) {
+			this.appleTouchIcon = this.getAbsolutePath(touchIcon);
+		}
+	}
+
+	return this;
+};
+
 MetaInspector.prototype.getOgTitle = function() {
 	debug("Parsing page Open Graph title");
 
@@ -277,6 +291,7 @@ MetaInspector.prototype.initAllProperties = function() {
 			.getLinks()
 			.getDescription()
       .getFavicon()
+      .getTouchIcon()
 			.getImage()
 			.getImages()
 			.getFeeds()

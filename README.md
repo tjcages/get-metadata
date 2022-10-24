@@ -22,6 +22,8 @@ client.keywords             # keywords from meta tag, as array
 client.charset              # page charset from meta tag, as string
 client.description          # returns the meta description, or the first long paragraph if no meta description is found
 client.image                # Most relevant image, if defined with og:image
+client.favicon              # website favicon image, if defined
+client.appleTouchIcon       # website apple-touch-icon, if defined with apple-touch-icon
 client.images               # array of strings, with every img found on the page as an absolute URL
 client.feeds                # Get rss or atom links in meta data fields as array
 client.ogTitle              # opengraph title
