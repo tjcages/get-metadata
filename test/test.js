@@ -30,8 +30,20 @@ describe('metainspector', function() {
 				}
 			});
 
-			firstClient.fetch();
-			secondClient.fetch();
+			firstClient.fetch().then(function() {
+        if (!calledOnce) {
+					calledOnce = true;
+				} else {
+					throw new Error('I should not get called twice');
+				}
+      });
+			secondClient.fetch().then(function() {
+        if (!calledOnce) {
+					calledOnce = true;
+				} else {
+					throw new Error('I should not get called twice');
+				}
+      });;
 		});
 	});
 
