@@ -271,6 +271,8 @@ describe("metainspector", function () {
 
         done();
       });
+
+      client.fetch();
     });
 
     it("should return the open graph type, if defined", function (done) {
