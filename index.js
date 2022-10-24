@@ -276,6 +276,7 @@ MetaInspector.prototype.initAllProperties = function() {
 			.getKeywords()
 			.getLinks()
 			.getDescription()
+      .getFavicon()
 			.getImage()
 			.getImages()
 			.getFeeds()
