@@ -3,6 +3,7 @@ var request = require("request");
 var events = require("events");
 var cheerio = require("cheerio");
 var URI = require("uri-js");
+var Promise = require('promise');
 var _ = require("lodash");
 
 var debug;
