@@ -266,7 +266,7 @@ describe("metainspector", function () {
     it("should emit errors", function (done) {
       client = new MetaInspector("http://www.google-404.com/", {});
 
-      client.once("error", function (error) {
+      client.on("error", function (error) {
         should.exist(error);
 
         done();
