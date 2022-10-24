@@ -58,6 +58,20 @@ MetaInspector.prototype.getTitle = function() {
 	return this;
 };
 
+MetaInspector.prototype.getFavicon = function() {
+	debug("Parsing page favicon");
+
+	if(this.favicon === undefined)
+	{
+    var favicon = this.parsedDocument("link[rel='icon']").attr("href");
+		if (favicon) {
+			this.favicon = this.getAbsolutePath(favicon);
+		}
+	}
+
+	return this;
+};
+
 MetaInspector.prototype.getOgTitle = function() {
 	debug("Parsing page Open Graph title");
 
