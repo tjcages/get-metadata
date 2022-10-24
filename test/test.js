@@ -263,16 +263,6 @@ describe("metainspector", function () {
       });
     });
 
-    it("should emit errors", function (done) {
-      client = new MetaInspector("http://www.google-404.com/", {});
-
-      client.fetch.then(function (resolve, reject) {
-        should.exist(reject);
-
-        done();
-      });
-    });
-
     it("should return the open graph type, if defined", function (done) {
       client = new MetaInspector("http://www.techsuplex.com", {});
 
