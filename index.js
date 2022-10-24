@@ -46,7 +46,7 @@ var MetaInspector = function (url, options) {
 
 //MetaInspector.prototype = new events.EventEmitter();
 // MetaInspector.prototype.__proto__ = events.EventEmitter.prototype;
-// util.inherits(MetaInspector, events.EventEmitter);
+util.inherits(MetaInspector, events.EventEmitter);
 
 module.exports = MetaInspector;
 
