@@ -1,5 +1,5 @@
 {
-  "name": "get-metadata",
+  "name": "og-metadata",
   "description": "Npm package for web scraping purposes. You give it an URL, and it lets you easily get its title, links, images, description, keywords, meta tags",
   "version": "3.0.0",
   "homepage": "https://github.com/tjcages/get-metadata.git",
