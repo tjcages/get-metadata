@@ -14,22 +14,6 @@ describe('metainspector', function() {
 		it('should not keep the same eventEmitter reference among clients', function(done) {
 			var calledOnce = false;
 
-			firstClient.on('fetch', function() {
-				if (!calledOnce) {
-					calledOnce = true;
-				} else {
-					throw new Error('I should not get called twice');
-				}
-			});
-
-			secondClient.on('fetch', function() {
-				should.exist(secondClient.parsedDocument);
-
-				if (calledOnce) {
-					done();
-				}
-			});
-
 			firstClient.fetch().then(function() {
         if (!calledOnce) {
 					calledOnce = true;
