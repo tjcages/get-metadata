@@ -1,82 +1,84 @@
 ![status](https://secure.travis-ci.org/gabceb/node-metainspector.png?branch=master)
 
-## Node-Metainspector
+## og-metadata
 
-MetaInspector is an npm package for web scraping purposes. You give it an URL, and it lets you easily get its title, links, images, description, keywords, meta tags....
+An npm package to access website metadata & link tags. Returns the title, description, favicon, preview image, keywords, theme color, etc. for a given website url.
 
-Metainspector is inspired by the Metainspector gem by [jaimeiniesta](https://github.com/jaimeiniesta/metainspector)
-
-This version requires node v6 or higher, as some dependencies make use of various bits of ES6 functionality. The 1.x.x versions are compatible with v0.x - v4 releases of node, and should be used instead for older applications.
-
-### Scraped data
-
+### Install
+With npm:
 ```
-client.url                  # URL of the page
-client.scheme               # Scheme of the page (http, https)
-client.host                 # Hostname of the page (like, markupvalidator.com, without the scheme)
-client.rootUrl              # Root url (scheme + host, i.e http://simple.com/)
-client.title                # title of the page, as string
-client.links                # array of strings, with every link found on the page as an absolute URL
-client.author               # page author, as string
-client.keywords             # keywords from meta tag, as array
-client.charset              # page charset from meta tag, as string
-client.description          # returns the meta description, or the first long paragraph if no meta description is found
-client.image                # Most relevant image, if defined with og:image
-client.favicon              # website favicon image, if defined
-client.appleTouchIcon       # website apple-touch-icon, if defined with apple-touch-icon
-client.images               # array of strings, with every img found on the page as an absolute URL
-client.feeds                # Get rss or atom links in meta data fields as array
-client.ogTitle              # opengraph title
-client.ogDescription        # opengraph description
-client.ogType               # Open Graph Object Type
-client.ogUpdatedTime        # Open Graph Updated Time
-client.ogLocale             # Open Graph Locale - for languages
+npm install og-metadata
 ```
+With yarn:
+```
+yarn add og-metadata
+```
+
+
+### Example
+Add og-metadata to a Nodejs project & access like
+```js
+// example export as a Firebase Function
+exports.getUrlMetadata = functions.https.onCall((data, context) => {
+  const url = data.url; // eg. https://tylerj.me
+  if (url) {
+    // begin og-metadata code
+    const MetaInspector = require("og-metadata");
+
+    var client = new MetaInspector(url, { timeout: 5000 });
+    return client.fetch().then(() => {
+      // note: no error handling yet
+      const data = {
+        title: client.title,
+        description: client.description,
+        image: client.image,
+        favicon: client.favicon,
+        appleTouchIcon: client.appleTouchIcon,
+        url: client.url,
+        host: client.host,
+        keywords: client.keywords,
+        themeColor: client.themeColor,
+        twitterCreator: client.twitterCreator,
+      };
+      return data;
+    });
+  }
+});
+```
+
+
+### Available data
+| Key      | Description |
+| ----------- | ----------- |
+| url      | full url of the page       |
+| scheme   | scheme of the page (http, https)        |
+| host   | hostname of the page (eg. tylerj.me)        |
+| rootUrl   | absolute url of the page w/o subpages or queries        |
+| title   | title of the page        |
+| description   | description of the page or the first long paragraph if no meta description is provided        |
+| author   | page author        |
+| keywords   | page keywords, as an array        |
+| charset   | charset of the page        |
+| links   | every link found on the page, as an array       |
+| themeColor   | theme color of the page, if provided        |
+| image   | social preview image of the page        |
+| favicon   | website favicon image        |
+| appleTouchIcon   | Apple touch icon of the page, if provided        |
+| images   | every image found on the page, as an array        |
+| feeds   | rss or atom links, as an array        |
+| ogTitle   | opengraph title        |
+| ogDescription   | opengraph description        |
+| ogType   | opengraph object type        |
+| ogUpdatedTime   | opengraph updated time        |
+| ogLocale   | opengraph locale language        |
+| twitterCreator   | Twitter creator, if provided        |
+
 
 ### Options
-
-```
-timeout - Defines the time Metainspector will wait for the url to respond in ms
-maxRedirects - Specifies the number of redirects Metainspector will follow
-limit - The limit in the number of bytes Metainspector will download when querying a site
-```
-
-## Usage
-
-```javascript
-var MetaInspector = require('node-metainspector');
-var client = new MetaInspector("http://www.google.com", { timeout: 5000 });
-
-client.on("fetch", function(){
-    console.log("Description: " + client.description);
-
-    console.log("Links: " + client.links.join(","));
-});
-
-client.on("error", function(err){
-	console.log(err);
-});
-
-client.fetch();
-
-```
-
-## TO DO
-
-Finish implementation of the properties below:
-
-```
-Add absolutify url function to return all urls as an absolute url
-
-client.internal_links     	# array of strings, with every internal link found on the page as an absolute URL
-client.external_links     	# array of strings, with every external link found on the page as an absolute URL
-
-```
-
-## ZOMG Fork! Thank you!
-You're welcome to fork this project and send pull requests. Just remember to include tests.
-
-Copyright (c) 2009-2012 Gabriel Cebrian, released under the MIT license
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/gabceb/node-metainspector/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+| Option      | Description | Default value |
+| ----------- | ----------- | ----------- |
+| timeout      | the time in ms to wait for the url to respond       | 20000ms |
+| maxRedirects   | the number of redirects allowed        | 5 |
+| strictSSL   | force SSL (https instead of http)        | false |
+| headers   | options headers for the request        | `{ 'User-Agent' : 'MetaInspector/1.0' }` |
 
