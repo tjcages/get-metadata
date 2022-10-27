@@ -151,6 +151,18 @@ MetaInspector.prototype.getOgLocale = function () {
   return this;
 };
 
+MetaInspector.prototype.getOgImageAlt = function () {
+  debug("Parsing page Open Graph image alt");
+
+  if (!this.ogImageAlt) {
+    this.ogImageAlt = this.parsedDocument("meta[property='og:image:alt']").attr(
+      "content"
+    );
+  }
+
+  return this;
+};
+
 MetaInspector.prototype.getLinks = function () {
   debug("Parsing page links");
 
@@ -341,6 +353,7 @@ MetaInspector.prototype.initAllProperties = function () {
     .getOgType()
     .getOgUpdatedTime()
     .getOgLocale()
+    .getOgImageAlt()
     .getTwitterCreator();
 };
 

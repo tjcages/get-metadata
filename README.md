@@ -71,6 +71,7 @@ exports.getUrlMetadata = functions.https.onCall((data, context) => {
 | ogType   | opengraph object type        |
 | ogUpdatedTime   | opengraph updated time        |
 | ogLocale   | opengraph locale language        |
+| ogImageAlt | opengraph image alt text |
 | twitterCreator   | Twitter creator, if provided        |
 
 
